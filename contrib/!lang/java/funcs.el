@@ -17,6 +17,23 @@
   (insert ".")
   (company-emacs-eclim 'interactive))
 
+(defun spacemacs/java-completing-double-collon ()
+  "Insert double collon and show company completions."
+  (interactive "*")
+  (when (s-matches? (rx (+ (not space)))
+                    (buffer-substring (line-beginning-position) (point)))
+    (delete-horizontal-space t))
+  (insert ":")
+  (let ((curr (point)))
+  (when (s-matches? (buffer-substring (- curr 2) (- curr 1)) ":")
+    (company-emacs-eclim 'interactive))))
+
+(defun spacemacs/java-maybe-completing-on-tab ()
+  "Either indents, expands or completes when tab is hitted."
+  (interactive "*")
+  )
+
+
 (defun spacemacs/java-maven-test ()
   (interactive)
   (eclim-maven-run "test"))

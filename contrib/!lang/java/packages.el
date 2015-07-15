@@ -10,11 +10,15 @@
 
 (defvar java-packages
   '(
+    dash
     emacs-eclim
     company
     ))
 
-(defun java/init-emacs-eclim ()
+(defun java/init-dash ()
+  (use-package dash))
+
+ (defun java/init-emacs-eclim ()
   (use-package eclim
     :defer t
     :init (add-hook 'java-mode-hook 'eclim-mode)
@@ -28,7 +32,10 @@
                    '(eclim-mode (:eval (eclim-modeline-string))))
 
       (evil-define-key 'insert java-mode-map
+
         (kbd ".") 'spacemacs/java-completing-dot
+        (kbd ":") 'spacemacs/java-completing-double-collon
+
         (kbd "M-.") 'eclim-java-find-declaration
         (kbd "M-,") 'pop-tag-mark
         (kbd "M-<mouse-3>") 'eclim-java-find-declaration
